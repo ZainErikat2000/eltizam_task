@@ -40,5 +40,16 @@ class Employee {
       gender: json["Gender"],
       address: json["Address"]);
 
-  factory Employee.toJson(Employee employee) => {};
+  static toJson(Employee employee) => {"ID": employee.id,
+  "First_Name": employee.firstName,
+  "Last_Name": employee.lastName,
+  "Email": employee.email,
+  "Mobile_Number": employee.mobileNumber,
+  "Password": employee.password,
+  "Gender": employee.gender,
+  "Address": employee.address,
+  "Department_ID": employee.departmentID,
+  "Server_Date_Time": employee.serverDateTime,
+  "DateTime_UTC": employee.dateTimeUTC,
+  "Update_DateTime_UTC": employee.updateDateTimeUTC};
 }
