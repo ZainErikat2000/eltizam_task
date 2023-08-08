@@ -40,7 +40,7 @@ class Employee {
       gender: json["Gender"],
       address: json["Address"]);
 
-  static toJson(Employee employee) => {"ID": employee.id,
+  static Map<String, dynamic> toJson(Employee employee) => {"ID": employee.id,
   "First_Name": employee.firstName,
   "Last_Name": employee.lastName,
   "Email": employee.email,

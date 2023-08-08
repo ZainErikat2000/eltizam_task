@@ -18,4 +18,12 @@ class Department {
       serverDateTime: json["Server_Date_Time"],
       dateTimeUTC: json["DateTime_UTC"],
       updateDateTimeUTC: json["Update_DateTime_UTC"]);
+
+  static Map<String, dynamic> toJson(Department department) => {
+        "ID": department.id,
+        "Name": department.name,
+        "Server_Date_Time": department.serverDateTime,
+        "DateTime_UTC": department.dateTimeUTC,
+        "Update_DateTime_UTC": department.updateDateTimeUTC,
+      };
 }

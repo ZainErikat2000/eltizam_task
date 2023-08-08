@@ -1,5 +1,9 @@
+import 'package:eltizam_task/services/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'models/department_model.dart';
+import 'models/employee_model.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,18 +25,9 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
-          height: 50,
-          width: 50,
-          color: Colors.blue,
-          child: InkWell(
-            onTap: () async {
-              final String data = await  rootBundle.loadString("assets/data/data.json");
-              print(data);
-            },
-            child: const Text('Click Me'),
-          ),
-        ),
+        child: ElevatedButton(onPressed: () async {
+          print(await DatabaseHelper.instance.getAllEmployees());
+        }, child: Text("click me")),
       ),
     );
   }
