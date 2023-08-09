@@ -63,7 +63,7 @@ class EmployeeDetailsPage extends StatelessWidget {
                     .getDepartment(employee.departmentID),
                 builder:
                     (BuildContext context, AsyncSnapshot<Department> snapshot) {
-                  return Text(snapshot.data!.name);
+                  return Text(snapshot.data?.name ?? "");
                 },
               )
             ]),

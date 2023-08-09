@@ -1,5 +1,7 @@
+import 'package:eltizam_task/custom_widgets/employee_card.dart';
 import 'package:eltizam_task/models/department_model.dart';
 import 'package:eltizam_task/pages/employee_details_page.dart';
+import 'package:eltizam_task/services/database_helper.dart';
 import 'package:flutter/material.dart';
 
 class DepartmentCard extends StatefulWidget {
@@ -24,30 +26,47 @@ class _DepartmentCardState extends State<DepartmentCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: isChecked
-          ? () {
-        setState(() {
-          isChecked = !isChecked;
-        });
-        //IMPLEMENT REMOVAL
-        widget.onLongPressReversal();
-      }
-          : () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => EmployeeDetailsPage(
-        //       employee: widget.department,
-        //     ),
-        //   ),
-        // );
-      },
-      onLongPress: () {
-        setState(() {
-          isChecked = !isChecked;
-        });
-        widget.onLongPress();
-      },
+      // onTap: isChecked
+      //     ? () {
+      //         setState(() {
+      //           isChecked = !isChecked;
+      //         });
+      //         //IMPLEMENT REMOVAL
+      //         widget.onLongPressReversal();
+      //       }
+      //     : () {
+      //         Navigator.push(
+      //           context,
+      //           MaterialPageRoute(
+      //             builder: (context) => Scaffold(
+      //               appBar: AppBar(),
+      //               body: SizedBox(
+      //                 width: MediaQuery.sizeOf(context).width,
+      //                 height: MediaQuery.sizeOf(context).height,
+      //                 child: FutureBuilder(
+      //                     future: DatabaseHelper.instance
+      //                         .getAllEmployeesFromDept(widget.department.id),
+      //                     builder: (context, snapshot) {
+      //                       if (!snapshot.hasData) {
+      //                         return Center(child: CircularProgressIndicator());
+      //                       } else {
+      //                         return SingleChildScrollView(
+      //                             child: Column(
+      //                           crossAxisAlignment: CrossAxisAlignment.center,
+      //                           children: snapshot.data!
+      //                               .map((e) => EmployeeCard(
+      //                                   employee: e,
+      //                                   onLongPress: () {},
+      //                                   onLongPressReversal: () {}))
+      //                               .toList(),
+      //                         ));
+      //                       }
+      //                     }),
+      //               ),
+      //             ),
+      //           ),
+      //         );
+      //       },
       child: Container(
         child: Container(
           height: 100,
@@ -64,13 +83,13 @@ class _DepartmentCardState extends State<DepartmentCard> {
             children: [
               isChecked
                   ? const Icon(
-                Icons.check_rounded,
-                color: Colors.green,
-              )
+                      Icons.check_rounded,
+                      color: Colors.green,
+                    )
                   : const Icon(
-                Icons.person,
-                color: Colors.black,
-              ),
+                      Icons.person,
+                      color: Colors.black,
+                    ),
               Container(
                 width: MediaQuery.sizeOf(context).width * .7,
                 padding: const EdgeInsets.symmetric(horizontal: 10),

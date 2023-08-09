@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MultiProvider(providers: [
-        ListenableProvider(create: (context) => EmployeePageProvider()..getEmployees()),
+        ListenableProvider(
+            create: (context) => EmployeePageProvider()..getEmployees()),
         ListenableProvider(
             create: (context) => DepartmentsPageProvider()..getDepartments()),
       ], child: MainPage()),
@@ -73,7 +74,18 @@ class _MainPageState extends State<MainPage> {
           }
         },
       ),
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.read<EmployeePageProvider>().getEmployees();
+              },
+              icon: const Icon(Icons.refresh)),
+          SizedBox(
+            width: 30,
+          )
+        ],
+      ),
       body: navPages[widget.selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const [

@@ -163,8 +163,8 @@ class DatabaseHelper {
 
   Future<Department> getDepartment(int id) async {
     Database? db = await instance.database;
-    List<Map<String, dynamic>>? result =
-        await db?.query(_departmentTableName, where: "ID = ?", whereArgs: ["$id"]);
+    List<Map<String, dynamic>>? result = await db
+        ?.query(_departmentTableName, where: "ID = ?", whereArgs: ["$id"]);
     print(result.toString());
 
     return Department.fromJson(result?[0] ?? {});
@@ -197,5 +197,18 @@ class DatabaseHelper {
       log(s.toString());
       return [];
     }
+  }
+
+  Future<List<Employee>> getAllEmployeesFromDept(int id) async {
+    Database? db = await instance.database;
+    List<Map<String, dynamic>>? result = await db?.query(_employeeTableName,
+        where: "$_employeeDepartmentID = ?", whereArgs: [id]);
+    List<Employee> employees = [];
+
+    for (Map<String, dynamic> json in result ?? []) {
+      employees.add(Employee.fromJson(json));
+    }
+
+    return employees;
   }
 }

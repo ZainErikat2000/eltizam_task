@@ -8,13 +8,14 @@ class AddEmployeePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fullWidth = MediaQuery.sizeOf(context).width;
-    double fullHeight = MediaQuery.sizeOf(context).height;
+    double fullWidth = MediaQuery
+        .sizeOf(context)
+        .width;
+    double fullHeight = MediaQuery
+        .sizeOf(context)
+        .height;
 
     final formKey = GlobalKey<FormState>();
-
-    Future<List<Department>> getDep =
-        DatabaseHelper.instance.getAllDepartments();
 
     String fName = "";
     String lName = "";
@@ -66,6 +67,11 @@ class AddEmployeePage extends StatelessWidget {
                     if (value?.isEmpty ?? true) {
                       return "PLease fill the field";
                     }
+                    if (!RegExp(
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value ?? "")) {
+                      return "Invalid Email";
+                    }
                     return null;
                   },
                   onChanged: (value) {
@@ -86,15 +92,17 @@ class AddEmployeePage extends StatelessWidget {
                 ),
                 DropdownButtonFormField<String>(
                   items: ["Male", "Female"]
-                      .map((e) => DropdownMenuItem<String>(
-                            child: Text(e),
-                            value: e,
-                          ))
+                      .map((e) =>
+                      DropdownMenuItem<String>(
+                        child: Text(e),
+                        value: e,
+                      ))
                       .toList(),
                   onChanged: (value) {
                     gender = value ?? "";
                   },
                   decoration: const InputDecoration(
+                    label: Text("Gender"),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(width: 2, color: Colors.blue),
                     ),
@@ -108,28 +116,31 @@ class AddEmployeePage extends StatelessWidget {
                 ),
                 FutureBuilder<List<Department>>(
                     future: DatabaseHelper.instance.getAllDepartments(),
-                    builder: (context, snapshot){
-                      if(!snapshot.hasData){
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
                         return const CircularProgressIndicator();
-                      }else{
+                      } else {
                         return DropdownButtonFormField<Department>(
                           items: snapshot.data
-                              ?.map((e) => DropdownMenuItem<Department>(
-                            value: e,
-                            child: Text(e.name),
-                          ))
+                              ?.map((e) =>
+                              DropdownMenuItem<Department>(
+                                value: e,
+                                child: Text(e.name),
+                              ))
                               .toList(),
                           onChanged: (value) {
                             dep_id = value!.id;
                           },
                           decoration: const InputDecoration(
+                            label: Text("Department"),
                             border: OutlineInputBorder(
-                              borderSide: BorderSide(width: 2, color: Colors.blue),
+                              borderSide:
+                              BorderSide(width: 2, color: Colors.blue),
                             ),
                           ),
                           validator: (value) {
                             if (value == null) {
-                              return "please pick a gender";
+                              return "please pick a department";
                             }
                             return null;
                           },
@@ -166,7 +177,7 @@ class AddEmployeePage extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Processing Data')),
                         );
-                        Map<String,dynamic> data = {
+                        Map<String, dynamic> data = {
                           "First_Name": fName,
                           "Last_Name": lName,
                           "Gender": gender,
@@ -188,12 +199,13 @@ class AddEmployeePage extends StatelessWidget {
                     child: const Text("Add Employee"))
               ]
                   .map(
-                    (e) => Padding(
+                    (e) =>
+                    Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 3),
+                          horizontal: 20, vertical: 10),
                       child: e,
                     ),
-                  )
+              )
                   .toList(),
             ),
           ),
