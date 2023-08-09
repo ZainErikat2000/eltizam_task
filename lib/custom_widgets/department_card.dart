@@ -1,25 +1,24 @@
+import 'package:eltizam_task/models/department_model.dart';
 import 'package:eltizam_task/pages/employee_details_page.dart';
 import 'package:flutter/material.dart';
 
-import '../models/employee_model.dart';
-
-class EmployeeCard extends StatefulWidget {
-  EmployeeCard({
+class DepartmentCard extends StatefulWidget {
+  DepartmentCard({
     super.key,
-    required this.employee,
+    required this.department,
     required this.onLongPress,
     required this.onLongPressReversal,
   });
 
-  final Employee employee;
+  final Department department;
   final void Function() onLongPress;
   final void Function() onLongPressReversal;
 
   @override
-  State<EmployeeCard> createState() => _EmployeeCardState();
+  State<DepartmentCard> createState() => _DepartmentCardState();
 }
 
-class _EmployeeCardState extends State<EmployeeCard> {
+class _DepartmentCardState extends State<DepartmentCard> {
   bool isChecked = false;
 
   @override
@@ -27,22 +26,22 @@ class _EmployeeCardState extends State<EmployeeCard> {
     return GestureDetector(
       onTap: isChecked
           ? () {
-              setState(() {
-                isChecked = !isChecked;
-              });
-              //IMPLEMENT REMOVAL
-              widget.onLongPressReversal();
-            }
+        setState(() {
+          isChecked = !isChecked;
+        });
+        //IMPLEMENT REMOVAL
+        widget.onLongPressReversal();
+      }
           : () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EmployeeDetailsPage(
-                    employee: widget.employee,
-                  ),
-                ),
-              );
-            },
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => EmployeeDetailsPage(
+        //       employee: widget.department,
+        //     ),
+        //   ),
+        // );
+      },
       onLongPress: () {
         setState(() {
           isChecked = !isChecked;
@@ -65,13 +64,13 @@ class _EmployeeCardState extends State<EmployeeCard> {
             children: [
               isChecked
                   ? const Icon(
-                      Icons.check_rounded,
-                      color: Colors.green,
-                    )
+                Icons.check_rounded,
+                color: Colors.green,
+              )
                   : const Icon(
-                      Icons.person,
-                      color: Colors.black,
-                    ),
+                Icons.person,
+                color: Colors.black,
+              ),
               Container(
                 width: MediaQuery.sizeOf(context).width * .7,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -80,15 +79,14 @@ class _EmployeeCardState extends State<EmployeeCard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Name: ${widget.employee.firstName} ${widget.employee.lastName}",
+                      "Department: ${widget.department.name}",
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text("Email: ${widget.employee.email}"),
-                    Text("Dep. ID: ${widget.employee.departmentID}"),
+                    Text("Dep. ID: ${widget.department.id}"),
                   ],
                 ),
               ),

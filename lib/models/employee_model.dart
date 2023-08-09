@@ -14,7 +14,7 @@ class Employee {
       required this.address});
 
   final int id;
-  final int departmentID;
+  int departmentID;
   final String serverDateTime;
   final String dateTimeUTC;
   final String updateDateTimeUTC;

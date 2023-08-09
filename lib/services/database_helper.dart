@@ -183,23 +183,16 @@ class DatabaseHelper {
   }
 
   Future<List<Department>> getAllDepartments() async {
-    print('getting departments');
     try {
-      print("getting db");
       Database? db = await instance.database;
-      print("querying");
       List<Map<String, dynamic>>? result =
           await db?.query(_departmentTableName);
       List<Department> department = [];
-      print("result: ${result.toString()}");
       for (Map<String, dynamic> jsonObj in result ?? []) {
-        print(jsonObj.toString());
         department.add(Department.fromJson(jsonObj));
       }
-      print("finished");
       return department;
     } catch (e, s) {
-      print("problem");
       log(e.toString());
       log(s.toString());
       return [];
